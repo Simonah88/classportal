@@ -12,17 +12,17 @@ import Student from './Student';
 
 export default class Grade {
 
-    // id is implicit: <student,deliverable> is a unique tuple
+  // id is implicit: <student,deliverable> is a unique tuple
 
-    public student:Student;
-    public deliverable:Deliverable;
-    public value: number;
-    //public feedback:string;
+  public student: Student;
+  public deliverable: Deliverable;
+  public value: number;
+  // public feedback:string;
 
-    constructor(student:Student, deliverable:Deliverable, value:number) {
-        this.student = student;
-        this.deliverable = deliverable;
-        this.value = value;
-    }
+  constructor(student: Student, deliverable: Deliverable, value: number) {
+    this.student = student;
+    this.deliverable = deliverable;
+    this.value = value;
+  }
 
 }

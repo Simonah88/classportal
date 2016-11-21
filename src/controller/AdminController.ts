@@ -2,7 +2,7 @@ import fs = require('fs');
 import async = require('async');
 import _ = require('lodash');
 import Log from '../Util';
-import {Helper} from '../Util';
+import { Helper } from '../Util';
 
 const pathToRoot = __dirname.substring(0, __dirname.lastIndexOf('classportal/')) + 'classportal/';
 var config = require(pathToRoot + 'config.json');
@@ -84,7 +84,7 @@ export default class AdminController {
         async.waterfall([
             function get_students_file(callback: any) {
                 Log.info("AdminController::updateClasslist - get_students_file");
-                Helper.readJSON("students.json", function (error: any, data: any) {
+                Helper.readJSON("students.json", function(error: any, data: any) {
                     if (!error) {
                         studentsFile = data;
                         return callback(null);
@@ -95,7 +95,7 @@ export default class AdminController {
             },
             function get_teams_file(callback: any) {
                 Log.info("AdminController::updateClasslist - get_teams_file");
-                Helper.readJSON("teams.json", function (error: any, data: any) {
+                Helper.readJSON("teams.json", function(error: any, data: any) {
                     if (!error) {
                         teamsFile = data;
                         return callback(null);
@@ -106,7 +106,7 @@ export default class AdminController {
             },
             function get_grades_file(callback: any) {
                 Log.info("AdminController::updateClasslist - get_grades_file");
-                Helper.readJSON("grades.json", function (error: any, data: any) {
+                Helper.readJSON("grades.json", function(error: any, data: any) {
                     if (!error) {
                         gradesFile = data;
                         return callback(null);
@@ -117,7 +117,7 @@ export default class AdminController {
             },
             function read_new_classlist(callback: any) {
                 Log.trace("AdminController::updateClasslist - read_new_classlist");
-                fs.readFile(csv_path, function (error: any, data: any) {
+                fs.readFile(csv_path, function(error: any, data: any) {
                     if (!error) {
                         classlistFile = data;
                         return callback(null);
@@ -131,7 +131,7 @@ export default class AdminController {
                 Log.trace("AdminController::updateClasslist - overwrite_classlist_file");
                 var filename = __dirname.substring(0, __dirname.lastIndexOf('classportal/')) + 'classportal/priv/classlist.csv';
 
-                fs.writeFile(filename, classlistFile, function (error: any) {
+                fs.writeFile(filename, classlistFile, function(error: any) {
                     if (!error) {
                         return callback(null);
                     } else {
@@ -200,7 +200,7 @@ export default class AdminController {
                 async.forEachOf(
                     teamsFile,
                     function loop_thru_teams(team: any, index: number, callback: any) {
-                        AdminController.isTeamValid(team.members, sidArray, function (result: boolean) {
+                        AdminController.isTeamValid(team.members, sidArray, function(result: boolean) {
                             if (result) {
                                 Log.trace("AdminController::updateClasslist - team " + team.id + " is valid");
                                 return callback();
@@ -360,7 +360,7 @@ export default class AdminController {
                 Log.trace("AdminController::updateClasslist - write_students_file");
                 Log.trace("new studentsFile:\n" + JSON.stringify(studentsFile, null, 2));
                 var path = pathToRoot.concat(config.private_folder, "students.json");
-                fs.writeFile(path, JSON.stringify(studentsFile, null, 2), function (err: any) {
+                fs.writeFile(path, JSON.stringify(studentsFile, null, 2), function(err: any) {
                     if (err) {
                         return callback("write_students_file: error");
                     } else {
@@ -372,7 +372,7 @@ export default class AdminController {
                 Log.trace("AdminController::updateClasslist - write_teams_file");
                 Log.trace("new teamsFile:\n" + JSON.stringify(teamsFile, null, 2));
                 var path = pathToRoot.concat(config.private_folder, "teams.json");
-                fs.writeFile(path, JSON.stringify(teamsFile, null, 2), function (err: any) {
+                fs.writeFile(path, JSON.stringify(teamsFile, null, 2), function(err: any) {
                     if (err) {
                         return callback("write_teams_file: error");
                     } else {
@@ -384,7 +384,7 @@ export default class AdminController {
                 Log.trace("AdminController::updateClasslist - write_grades_file");
                 Log.trace("new gradesFile:\n" + JSON.stringify(gradesFile, null, 2));
                 var path = pathToRoot.concat(config.private_folder, "grades.json");
-                fs.writeFile(path, JSON.stringify(gradesFile, null, 2), function (err: any) {
+                fs.writeFile(path, JSON.stringify(gradesFile, null, 2), function(err: any) {
                     if (err) {
                         return callback("write_grades_file: error");
                     } else {
@@ -406,13 +406,13 @@ export default class AdminController {
     }
 
     /**
-     * Add teamId to the specified admin's 'teams' array in admins.json. 
+     * Add teamId to the specified admin's 'teams' array in admins.json.
      */
     static assignTeam(username: string, teamId: string, callback: any) {
         Log.trace("AdminController::assignTeam(..) - start");
         var path = pathToRoot.concat(config.private_folder, "admins.json");
 
-        Helper.readJSON("admins.json", function (error: any, adminsFile: any) {
+        Helper.readJSON("admins.json", function(error: any, adminsFile: any) {
             if (!error) {
                 var adminIndex: number = _.findIndex(adminsFile, { "username": username });
                 if (adminIndex !== -1) {
@@ -426,7 +426,7 @@ export default class AdminController {
                         adminsFile[adminIndex].teams.push(teamId);
 
                         Log.trace("AdminController::assignTeam(...) - writing to admins file..");
-                        fs.writeFile(path, JSON.stringify(adminsFile, null, 2), function (error: any) {
+                        fs.writeFile(path, JSON.stringify(adminsFile, null, 2), function(error: any) {
                             if (!error) {
                                 Log.trace("AdminController::assignTeam(..) - team " + teamId + " was successfully added to " + username + "'s assigned teams.");
                                 return callback(null);
@@ -452,7 +452,7 @@ export default class AdminController {
     static submitGrade(sid: string, assnId: string, grade: string, comment: string, callback: any) {
         Log.trace("AdminController::submitGrade(..) - start");
 
-        Helper.addGrade(sid, assnId, grade, comment, function (error: any, data: any) {
+        Helper.addGrade(sid, assnId, grade, comment, function(error: any, data: any) {
             if (!error) {
                 return callback(null, "success!");
             } else {
