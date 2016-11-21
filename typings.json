@@ -1,18 +1,18 @@
 {
   "globalDependencies": {
-    "bunyan": "registry:dt/bunyan#0.0.0+20160412155112",
+    "bunyan": "registry:dt/bunyan#0.0.0+20161019135123",
     "chai": "registry:dt/chai#3.4.0+20160601211834",
-    "core-js": "registry:dt/core-js#0.0.0+20160725163759",
+    "core-js": "registry:dt/core-js#0.0.0+20160914114559",
     "form-data": "registry:dt/form-data#0.0.0+20160724024111",
-    "mocha": "registry:dt/mocha#2.2.5+20160720003353",
-    "moment": "registry:dt/moment#2.11.1+20160829143156",
-    "node": "registry:dt/node#6.0.0+20160907173219",
-    "request": "registry:dt/request#0.0.0+20160726020908",
-    "request-promise": "registry:dt/request-promise#3.0.0+20160906190103",
-    "restify": "registry:dt/restify#2.0.0+20160726153409"
+    "mocha": "registry:dt/mocha#2.2.5+20161028141524",
+    "moment": "registry:dt/moment#2.11.1+20161010105546",
+    "node": "registry:dt/node#6.0.0+20161110151007",
+    "request": "registry:dt/request#0.0.0+20161116202412",
+    "request-promise": "registry:dt/request-promise#4.1.0+20161013074249",
+    "restify": "registry:dt/restify#2.0.0+20160928142801"
   },
   "dependencies": {
     "async": "registry:npm/async#2.0.1+20160815105832",
-    "lodash": "registry:npm/lodash#4.0.0+20160723033700"
+    "lodash": "registry:npm/lodash#4.0.0+20161015015725"
   }
 }
