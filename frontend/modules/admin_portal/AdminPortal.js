@@ -1,46 +1,50 @@
-import React from 'react'
-import NavLink from '../shared_components/NavLink'
-import Logout from '../shared_components/Logout'
-import Ajax from '../shared_components/Ajax'
-import { Row, Col } from 'elemental'
+/* eslint-disable no-constant-condition */
+
+import React from 'react';
+import { Row, Col } from 'elemental';
+import NavLink from '../shared_components/NavLink';
+import Logout from '../shared_components/Logout';
+import Ajax from '../shared_components/Ajax';
 
 export default React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return {
       loaded: false,
       files: {
-        "adminsFile": {},
-        "myAdminIndex": 0,
-        "studentsFile": {},
-        "teamsFile": {},
-        "deliverablesFile": {},
-        "gradesFile": {},
-        "namesArray": []
-      }
+        adminsFile: {},
+        myAdminIndex: 0,
+        studentsFile: {},
+        teamsFile: {},
+        deliverablesFile: {},
+        gradesFile: {},
+        namesArray: [],
+      },
     };
   },
-  loadAdminPortal: function () {
+  componentDidMount() {
+    this.loadAdminPortal();
+  },
+  loadAdminPortal() {
     Ajax.loadAdminPortal(
-      function onSuccess(response) {
+      (response) => {
         // console.log("AdminPortal.js| Retrieved files: " + JSON.stringify(response, null, 2));
-        this.setState({ files: response }, function () {
-          //verify files exist and are a proper format here
+        this.setState({ files: response }, () => {
+          // verify files exist and are a proper format here
           if (1) {
             this.setState({ loaded: true });
-          }
-          else {
-            alert("Error loading files for user " + localStorage.username + "!");
+          } else {
+            alert(`Error loading files for user ${localStorage.username}!`);
           }
         });
-      }.bind(this),
-      function onError(xhr, status, error) {
-        console.log("AdminPortal.js| Error getting files!");
-      }.bind(this)
-    )
+      },
+      () => {
+        // console.log('AdminPortal.js| Error getting files!');
+      },
+    );
   },
-  renderLogout: function () {
-    var firstname = null;
-    var prof = null;
+  renderLogout() {
+    let firstname = null;
+    let prof = null;
 
     if (this.state.files.adminsFile.length >= 0) {
       firstname = this.state.files.adminsFile[this.state.files.myAdminIndex].firstname;
@@ -49,24 +53,23 @@ export default React.createClass({
 
     return (<Logout
       firstname={firstname}
-      sid={prof ? "Prof" : "TA"}
-      username={localStorage.username}/>);
+      sid={prof ? 'Prof' : 'TA'}
+      username={localStorage.username}
+    />);
   },
-  componentDidMount: function () {
-    this.loadAdminPortal();
-  },
-  render: function () {
-    //more info: http://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
-    var childrenWithProps = React.Children.map(this.props.children, function (child) {
-      return React.cloneElement(child, { "files": this.state.files });
-    }.bind(this));
+  render() {
+    // more info: http://stackoverflow.com/questions/32370994/how-to-pass-props-to-this-props-children
+    const childrenWithProps = React.Children.map(
+        this.props.children,
+        (child) => React.cloneElement(child, { files: this.state.files }),
+    );
 
     return (
       <div>
         <div id="NavLinks">
           <Row>
             <Col sm="1/3">
-              <NavLink to="/admin/teams" onlyActiveOnIndex={true}>Teams</NavLink>
+              <NavLink to="/admin/teams" onlyActiveOnIndex>Teams</NavLink>
             </Col>
             <Col sm="1/3">
               <NavLink to="/admin/students">Students</NavLink>
@@ -77,9 +80,9 @@ export default React.createClass({
           </Row>
         </div>
 
-        {this.renderLogout() }
+        {this.renderLogout()}
         {this.state.loaded && childrenWithProps}
       </div>
-    )
-  }
-})
+    );
+  },
+});

@@ -1,95 +1,95 @@
-import React from 'react'
-import {Spinner} from 'elemental'
-import {browserHistory} from 'react-router'
-import Ajax from '../shared_components/Ajax'
+/* eslint-disable no-useless-escape */
+
+import React from 'react';
+import { Spinner } from 'elemental';
+import { browserHistory } from 'react-router';
+import Ajax from '../shared_components/Ajax';
 
 export default React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return { error: false };
   },
-  getAuthCode: function (url, callback) {
-    var validAuthCode = /[?]code=([\w\/\-]+)/;
+  componentDidMount() {
+    this.sendAuthCode();
+  },
+  getAuthCode(url, callback) {
+    const validAuthCode = /[?]code=([\w\/\-]+)/;
     if (validAuthCode.test(url)) {
-      var authcode = url.split("code=")[1];
+      const authcode = url.split('code=')[1];
       // console.log("PostLogin.js| Obtained authcode: " + authcode)
       callback(authcode);
-    }
-    else {
-      this.setState({ error: true }, function () {
+    } else {
+      this.setState({ error: true }, () => {
         // console.log("PostLogin.js| Error: redirecting to login..");
-        setTimeout(function () {
-          browserHistory.push("/");
+        setTimeout(() => {
+          browserHistory.push('/');
         }, 2000);
       });
     }
   },
-  sendAuthCode: function () {
-    this.getAuthCode(window.location.href, function (authcode) {
+  sendAuthCode() {
+    this.getAuthCode(window.location.href, (authcode) => {
       Ajax.login(
-        localStorage.csid ? localStorage.csid : "",
-        localStorage.sid ? localStorage.sid : "",
+        localStorage.csid ? localStorage.csid : '',
+        localStorage.sid ? localStorage.sid : '',
         authcode,
-        function onSuccess(response) {
-          // console.log("PostLogin.js| Authentication success! Response: " + JSON.stringify(response));
-          var admin = response.admin;
-          var username = response.username;
-          var token = response.token;
+        (response) => {
+          // console.log('PostLogin.js| Authentication success!
+          // Response: ' + JSON.stringify(response));
+          const admin = response.admin;
+          const username = response.username;
+          const token = response.token;
 
-          //clear any previously saved values in localstorage
+          // clear any previously saved values in localstorage
           localStorage.clear();
 
-          if (!!username & !!token) {
+          if (!!username && !!token) {
             if (admin === true) {
               // console.log("PostLogin.js| Admin login! Redirecting..");
               localStorage.setItem('username', username);
               localStorage.setItem('token', token);
-              localStorage.setItem('admin', "true");
-              browserHistory.push("/admin");
-            }
-            else {
+              localStorage.setItem('admin', 'true');
+              browserHistory.push('/admin');
+            } else {
               // console.log("PostLogin.js| Student login! Redirecting..");
               localStorage.setItem('username', username);
               localStorage.setItem('token', token);
-              browserHistory.push("/");
+              browserHistory.push('/');
             }
-          }
-          else {
-            //bad login, so send back to login page
-            this.setState({ error: true }, function () {
-              console.log("Login failed! Redirecting..");
-              setTimeout(function () {
-                browserHistory.push("/");
+          } else {
+            // bad login, so send back to login page
+            this.setState({ error: true }, () => {
+              // console.log('Login failed! Redirecting..');
+              setTimeout(() => {
+                browserHistory.push('/');
               }, 2500);
             });
           }
-        }.bind(this),
-        function onError(xhr, status, err) {
-          var err_msg = JSON.parse(xhr.responseText);
-          alert("Error: " + err_msg);
+        },
+        (xhr) => {
+          const errMsg = JSON.parse(xhr.responseText);
+          alert(`Error: ${errMsg}`);
 
-          //clear student info set by register process
+          // clear student info set by register process
           localStorage.clear();
 
-          //display error message for 3 seconds before redirecting to login
-          this.setState({ error: true }, function () {
-            console.log("Login failed! Redirecting..");
-            setTimeout(function () {
-              browserHistory.push("/");
+          // display error message for 3 seconds before redirecting to login
+          this.setState({ error: true }, () => {
+            // console.log('Login failed! Redirecting..');
+            setTimeout(() => {
+              browserHistory.push('/');
             }, 2500);
           });
-        }.bind(this)
-      )
-    }.bind(this));
-  },
-  componentDidMount: function () {
-    this.sendAuthCode();
+        },
+      );
+    });
   },
   render() {
     return (
       <div className="module">
-        <h3>{this.state.error ? "Error! Redirecting to Login" : "Connecting to GitHub" }</h3>
-        <Spinner size="lg" type="primary"/><br/><br/>
+        <h3>{this.state.error ? 'Error! Redirecting to Login' : 'Connecting to GitHub'}</h3>
+        <Spinner size="lg" type="primary" /><br /><br />
       </div>
-    )
-  }
-})
+    );
+  },
+});

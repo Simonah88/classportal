@@ -1,34 +1,32 @@
-import React from 'react'
-import { Form, FormRow, FormField, FormInput, FormIconField, FormSelect, Glyph, Button } from 'elemental'
-import ContentModule from '../shared_components/ContentModule'
-import Ajax from './Ajax'
-import config from 'config'
+import React from 'react';
+import { Form, FormField, FormSelect, Button } from 'elemental';
+import config from '../../../config.json';
+import ContentModule from '../shared_components/ContentModule';
+import Ajax from './Ajax';
 
 export default React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return { newTeamArray: [] };
   },
-  handleSubmit: function (e) {
+  handleSubmit(e) {
     e.preventDefault();
-    var newTeamArray = this.state.newTeamArray;
-    var alertMessage = "Forming team with students: ";
+    const newTeamArray = this.state.newTeamArray;
+    let alertMessage = 'Forming team with students: ';
 
-    //check for valid students
-    for (var i = 0; i < config.team_size; i++) {
-      //check that there actually is a selected student at this index 
+    // check for valid students
+    for (let i = 0; i < config.team_size; i++) {
+      // check that there actually is a selected student at this index
       if (!!newTeamArray[i] && typeof newTeamArray[i] === 'string') {
-
-        //check that this student was not previously selected
-        for (var j = 0; j < i; j++) {
+        // check that this student was not previously selected
+        for (let j = 0; j < i; j++) {
           if (newTeamArray[i] === newTeamArray[j]) {
-            alert("Error: Invalid team.");
+            alert('Error: Invalid team.');
             return;
           }
         }
-        alertMessage += newTeamArray[i] + " ";
-      }
-      else {
-        alert("Error: Invalid team.");
+        alertMessage += `${newTeamArray[i]} `;
+      } else {
+        alert('Error: Invalid team.');
         return;
       }
     }
@@ -36,37 +34,35 @@ export default React.createClass({
     if (confirm(alertMessage)) {
       Ajax.createTeam(
         newTeamArray,
-        function onSuccess(response) {
+        (response) => {
           // console.log("CreateTeam.js| Success: " + response);
-          alert("Success: Team " + response + " created!")
+          alert(`Success: Team ${response} created!`);
           window.location.reload(true);
-        }.bind(this),
-        function onError(xhr, status, err) {
-          alert("Error: Could not create team.")
-        }.bind(this)
-      )
+        },
+        () => {
+          alert('Error: Could not create team.');
+        },
+      );
     }
   },
-  handleSelect: function (index, value) {
-    if (!!value) {
-      // this.state is immutable, so setState a new array 
-      var temp = this.state.newTeamArray;
+  handleSelect(index, value) {
+    if (value) {
+      // this.state is immutable, so setState a new array
+      const temp = this.state.newTeamArray;
       temp[index] = value;
       this.setState({ newTeamArray: temp });
-    }
-    else {
-      alert("Error: Bad selection");
+    } else {
+      alert('Error: Bad selection');
     }
   },
-  renderForm: function () {
-    var oneOrMoreDropdowns = [];
+  renderForm() {
+    const oneOrMoreDropdowns = [];
 
-    //build array of dropdown menus depending on specified team size
-    for (var index = 0; index < config.team_size; index++) {
-      if (index == 0 && this.props.isAdmin !== "true") {
+    // build array of dropdown menus depending on specified team size
+    for (let index = 0; index < config.team_size; index++) {
+      if (index === 0 && this.props.isAdmin !== 'true') {
         oneOrMoreDropdowns[index] = this.renderFirstDropdown();
-      }
-      else {
+      } else {
         oneOrMoreDropdowns[index] = this.renderDropdown(index);
       }
     }
@@ -79,29 +75,36 @@ export default React.createClass({
         </FormField>
       </Form>);
   },
-  renderDropdown: function (index) {
+  renderDropdown(index) {
     return (
       <FormSelect
-        key={index.toString() }
+        key={index.toString()}
         options={this.props.namesArray}
         firstOption="Select"
-        onChange={this.handleSelect.bind(this, index) }
-        />);
+        onChange={this.handleSelect.bind(this, index)}
+      />);
   },
-  renderFirstDropdown: function () {
+  renderFirstDropdown() {
     return (
       <FormSelect
         key="first"
-        options={[{ "label": this.props.studentName }]}
+        options={[{ label: this.props.studentName }]}
         firstOption="Select"
-        onChange={this.handleSelect.bind(this, 0) }
-        />);
+        onChange={this.handleSelect.bind(this, 0)}
+      />);
   },
-  render: function () {
+  render() {
     return (
       <ContentModule id="create-team" title="Create Team" initialHideContent={false}>
-        {!!this.props.namesArray ? this.renderForm() : (<div><h4>Error: No classlist provided.</h4><br/></div>) }
+        {this.props.namesArray
+          ? this.renderForm()
+          : (
+            <div>
+              <h4>Error: No classlist provided.</h4>
+              <br />
+            </div>)
+        }
       </ContentModule>
-    )
-  }
-})
+    );
+  },
+});

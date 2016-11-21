@@ -1046,7 +1046,7 @@ try {
             Log.info('ProvisioningMain() - Available teams: ' + JSON.stringify(descriptions));
 
             const clean = false;
-            if (clean === true) {
+            if (clean) {
                 // really don't want to do this by accident! comment return if you actually want to clean
                 return;
             }
@@ -1061,7 +1061,7 @@ try {
                 descr.projectName = PROJECT_PREFIX + descr.team;
                 descr.teamName = TEAM_PREFIX + descr.team;
 
-                if (clean === true) {
+                if (clean) {
                     Log.info('ProvisioningMain() - Clean Team: ' + JSON.stringify(descr));
                     groupsToProcess.push(descr);
                 } else {
@@ -1093,7 +1093,7 @@ try {
             let processList: GroupRepoDescription[] = []; // this is really Promise<GroupRepoDescription>[]
             for (var toProcess of groupsToProcess) {
 
-                if (clean === true) {
+                if (clean) {
                     // clean instead of provision
                     processList.push(<any>gpc.completeClean(toProcess));
                 } else {

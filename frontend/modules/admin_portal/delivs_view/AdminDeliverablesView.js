@@ -1,12 +1,10 @@
-import React from 'react'
-import AdminDeliverables from './AdminDeliverables'
+import React from 'react';
+import AdminDeliverables from './AdminDeliverables';
 
-export default React.createClass({
-  render: function () {
-    return (
-      <div>
-        <AdminDeliverables deliverables={this.props.files.deliverablesFile}/>
-      </div>
-    )
-  }
-})
+const AdminDeliverablesView = (props) => (
+  <div>
+    <AdminDeliverables deliverables={props.files.deliverablesFile} />
+  </div>
+);
+
+export default AdminDeliverablesView;

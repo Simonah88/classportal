@@ -1,18 +1,17 @@
-import React from 'react'
-import { Form, FormRow, FormField, FormInput, FormIconField, FormSelect, Glyph, Button } from 'elemental'
-import ContentModule from '../../shared_components/ContentModule'
+import React from 'react';
+import ContentModule from '../../shared_components/ContentModule';
 
 export default React.createClass({
-  renderDeliverables: function () {
-    var that = this;
-    var delivs = [];
-    for (var index = 0; index < this.props.deliverables.length; index++) {
+  renderDeliverables() {
+    const that = this;
+    const delivs = [];
+    for (let index = 0; index < this.props.deliverables.length; index++) {
       delivs.push(that.renderDeliverable(index));
     }
     return delivs;
   },
-  renderDeliverable: function (index) {
-    var deliverable = this.props.deliverables[index];
+  renderDeliverable(index) {
+    const deliverable = this.props.deliverables[index];
     return (
       <tr key={index}>
         <td className="tg-edam">{deliverable.name}</td>
@@ -24,7 +23,7 @@ export default React.createClass({
       </tr>
     );
   },
-  render: function () {
+  render() {
     return (
       <ContentModule id="admin-deliverables-module" title="Deliverables" initialHideContent={false}>
         <table className="tg">
@@ -39,6 +38,6 @@ export default React.createClass({
           </tbody>
         </table>
       </ContentModule>
-    )
-  }
-})
+    );
+  },
+});

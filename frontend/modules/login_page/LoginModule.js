@@ -1,18 +1,18 @@
-import React from 'react'
-import {browserHistory} from 'react-router'
-import { Form, FormRow, FormField, Button, Glyph, ButtonGroup } from 'elemental'
-import config from 'config'
+import React from 'react';
+import { browserHistory } from 'react-router';
+import { Form, FormField, Button, Glyph, ButtonGroup } from 'elemental';
+import config from '../../../config.json';
 
 export default React.createClass({
-  registerButton: function (event) {
+  registerButton(event) {
     event.preventDefault();
-    browserHistory.push("/register");
+    browserHistory.push('/register');
   },
-  loginButton: function (event) {
+  loginButton(event) {
     event.preventDefault();
-    var client_id = config.client_id;
-    var redirect_uri = "http://" + config.host + ":" + config.port + "/postlogin";
-    window.location = "https://github.com/login/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirect_uri;
+    const clientId = config.client_id;
+    const redirectUri = `http://${config.host}:${config.port}/postlogin`;
+    window.location = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}`;
   },
   render() {
     return (
@@ -22,17 +22,17 @@ export default React.createClass({
           <FormField>
             <ButtonGroup>
               <Button id="1" size="sm" onClick={this.registerButton}>
-                <Glyph icon="bookmark"/>
+                <Glyph icon="bookmark" />
                 &nbsp; Register Account
               </Button>
               <Button id="2" size="sm" onClick={this.loginButton}>
-                <Glyph icon="mark-github"/>
+                <Glyph icon="mark-github" />
                 &nbsp; Log in with GitHub
               </Button>
             </ButtonGroup>
           </FormField>
         </Form>
       </div>
-    )
-  }
-})
+    );
+  },
+});

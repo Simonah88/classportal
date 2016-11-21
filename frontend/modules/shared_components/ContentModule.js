@@ -1,26 +1,26 @@
-//parent component for all content modules.
-//required props: id (string), title (string), initialHideContent (boolean)
+// parent component for all content modules.
+// required props: id (string), title (string), initialHideContent (boolean)
 
-import React from 'react'
-import { Row, Col, Button, Alert, Glyph, Spinner } from 'elemental'
+import React from 'react';
+import { Button, Glyph } from 'elemental';
 
 export default React.createClass({
-  getInitialState: function () {
+  getInitialState() {
     return { hideContent: this.props.initialHideContent };
   },
-  showOrHide: function (e) {
-    e.preventDefault;
+  showOrHide(e) {
+    e.preventDefault();
     this.setState({ hideContent: !this.state.hideContent });
   },
-  render: function () {
-    var display = {
-      display: this.state.hideContent ? "none" : "block"
-    }
+  render() {
+    const display = {
+      display: this.state.hideContent ? 'none' : 'block',
+    };
 
     return (
       <div className="module">
-        <Button className="absolute-pos" onClick={this.showOrHide} type={this.state.hideContent ? "primary" : "hollow-primary"} size="sm">
-          <Glyph icon={this.state.hideContent ? "plus" : "dash"} />
+        <Button className="absolute-pos" onClick={this.showOrHide} type={this.state.hideContent ? 'primary' : 'hollow-primary'} size="sm">
+          <Glyph icon={this.state.hideContent ? 'plus' : 'dash'} />
         </Button>
 
         <h3 className="text-center">{this.props.title}</h3>
@@ -29,6 +29,6 @@ export default React.createClass({
           {this.props.children}
         </div>
       </div>
-    )
-  }
-})
+    );
+  },
+});

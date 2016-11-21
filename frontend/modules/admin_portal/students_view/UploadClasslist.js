@@ -1,25 +1,26 @@
-import React from 'react'
-import { FileUpload, Form, FormRow, FormField, FormInput, FormIconField, FormSelect, Glyph, Button } from 'elemental'
-import ContentModule from '../../shared_components/ContentModule'
-import Ajax from '../../shared_components/Ajax'
+import React from 'react';
+import { Form, FormField, Button } from 'elemental';
+import ContentModule from '../../shared_components/ContentModule';
+// import Ajax from '../../shared_components/Ajax';
 
 export default React.createClass({
-  getInitialState: function () {
-    return ({ files: [] })
+  getInitialState() {
+    return ({ files: [] });
   },
-  createProjects: function (event) {
+  createProjects(event) {
     event.preventDefault();
   },
-  handleChange: function (event) {
+  handleChange(event) {
     this.setState({ files: event.target.files });
   },
-  submitCSV: function (event) {
+  submitCSV(event) {
     event.preventDefault();
-    console.log("Submitting..");
+    /*
+    console.log('Submitting..');
 
-    //grab all form data  
-    var files = new FormData();
-    $.each(this.state.files, function (key, value) {
+    // grab all form data
+    const files = new FormData();
+    $.each(this.state.files, (key, value) => {
       files.append(key, value);
     });
 
@@ -27,17 +28,18 @@ export default React.createClass({
 
     Ajax.submitClasslist(
       files,
-      function onSuccess(response) {
-        alert("Successfully updated classlist!\n\n" + response);
+      (response) => {
+        alert(`Successfully updated classlist!\n\n${response}`);
         window.location.reload(true);
       },
-      function onError() {
-        alert("Error updating classlist!");
+      () => {
+        alert('Error updating classlist!');
         window.location.reload(true);
-      }
-    )
+      },
+    );
+    */
   },
-  render: function () {
+  render() {
     return (
       <ContentModule id="upload-classlist-module" title="Upload New Classlist" initialHideContent={false}>
         <Form onSubmit={this.submitCSV}>
@@ -47,6 +49,6 @@ export default React.createClass({
           </FormField>
         </Form>
       </ContentModule>
-    )
-  }
-})
+    );
+  },
+});

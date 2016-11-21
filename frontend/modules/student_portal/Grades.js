@@ -1,14 +1,13 @@
-import React from 'react'
-import { Row, Col, Button, Alert, Glyph, Spinner } from 'elemental'
-import ContentModule from '../shared_components/ContentModule'
+import React from 'react';
+import ContentModule from '../shared_components/ContentModule';
 
 export default React.createClass({
-  renderGrades: function () {
-    var block = [];
-    var grades = this.props.grades;
-    var deliverables = this.props.deliverables;
+  renderGrades() {
+    const block = [];
+    const grades = this.props.grades;
+    const deliverables = this.props.deliverables;
 
-    for (var index = 0; index < deliverables.length; index++) {
+    for (let index = 0; index < deliverables.length; index++) {
       block[index] = (
         <tr key={index}>
           <td className="tg-edam">{deliverables[index].name}</td>
@@ -17,10 +16,10 @@ export default React.createClass({
         </tr>);
     }
 
-    // console.log("Grades.js| Rendering grades");    
-    return (<tbody>{block}</tbody>)
+    // console.log("Grades.js| Rendering grades");
+    return (<tbody>{block}</tbody>);
   },
-  render: function () {
+  render() {
     return (
       <ContentModule id="gradesModule" title="Grades" initialHideContent={false}>
 
@@ -38,6 +37,6 @@ export default React.createClass({
         </div>
 
       </ContentModule>
-    )
-  }
-})
+    );
+  },
+});

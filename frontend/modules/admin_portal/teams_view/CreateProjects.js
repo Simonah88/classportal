@@ -1,13 +1,13 @@
-import React from 'react'
-import { Form, FormRow, FormField, FormInput, FormIconField, FormSelect, Glyph, Button } from 'elemental'
-import ContentModule from '../../shared_components/ContentModule'
+import React from 'react';
+import { Form, FormField, Button } from 'elemental';
+import ContentModule from '../../shared_components/ContentModule';
 
 export default React.createClass({
-  createProjects: function (e) {
+  createProjects(e) {
     e.preventDefault();
-    alert("Not yet implemented..");
+    alert('Not yet implemented..');
   },
-  render: function () {
+  render() {
     return (
       <ContentModule id="create-projects-module" title="Create Projects" initialHideContent={false}>
         <Form onSubmit={this.createProjects}>
@@ -16,6 +16,6 @@ export default React.createClass({
           </FormField>
         </Form>
       </ContentModule>
-    )
-  }
-})
+    );
+  },
+});
