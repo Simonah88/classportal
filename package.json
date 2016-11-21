@@ -39,11 +39,17 @@
   },
   "devDependencies": {
     "babel-core": "^6.5.1",
+    "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
     "chai": "^3.5.0",
     "css-loader": "*",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
     "frisby": "^0.8.5",
     "http": "0.0.0",
     "http-server": "^0.9.0",
@@ -68,6 +74,21 @@
     "test": "mocha -c",
     "cover": "istanbul cover _mocha",
     "start:dev": "webpack-dev-server --inline --content-base frontend/public --history-api-fallback",
-    "start:prod": "webpack && node src/App.js"
+    "start:prod": "webpack && node src/App.js",
+    "eslint": "eslint src frontend webpack.config.js",
+    "lint": "npm run eslint"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "rules": {
+      "import/no-extraneous-dependencies": [
+        2,
+        {
+          "devDependencies": true
+        }
+      ],
+      "react/jsx-filename-extension": 0
+    }
   }
 }
