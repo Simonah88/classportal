@@ -54,8 +54,7 @@ export default class TeamController {
               newTeamId = 1;
               return callback(null);
             }
-          }
-          else {
+          } else {
             return callback("could not read teams file");
           }
         });

@@ -110,8 +110,7 @@ function requireTempToken(req: restify.Request, res: restify.Response, next: res
   if (username === "temp" && token === "temp") {
     Log.trace("checkTempToken| Valid temp request! Continuing to authentication..\n----------------------------------------------------");
     return next();
-  }
-  else {
+  } else {
     Log.error("checkTempToken| Error: Bad request. Returning..");
     return res.send(500, "bad request");
   }
@@ -134,19 +133,16 @@ function requireToken(req: restify.Request, res: restify.Response, next: restify
         if (!!servertoken && (token === servertoken)) {
           Log.trace("checkToken| Tokens match! Continuing to next middleware..\n----------------------------------------------------");
           return next();
-        }
-        else {
+        } else {
           Log.error("checkToken| Error: Tokens do not match (" + token + ":" + servertoken + ") Returning..");
           return res.send(500, "bad request");
         }
-      }
-      else {
+      } else {
         Log.error("checkToken| Could not read file! Returning..");
         return res.send(500, "Error reading tokens.json");
       }
     });
-  }
-  else {
+  } else {
     Log.error("checkToken| Error: Bad request. Returning..");
     return res.send(500, "bad request");
   }
@@ -161,8 +157,7 @@ function requireAdmin(req: restify.Request, res: restify.Response, next: restify
   if (admin === "true") {
     Log.trace("requireAdmin| Valid admin field. Continuing to next middleware..\n----------------------------------------------------");
     return next();
-  }
-  else {
+  } else {
     Log.warn("requireAdmin| Missing admin field. Returning..");
     return res.send(500, "permission denied");
   }

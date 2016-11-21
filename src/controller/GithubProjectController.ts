@@ -1,6 +1,8 @@
-/**
+ /**
  * Created by rtholmes on 2016-06-19.
  */
+
+/* tslint:disable:ter-max-len */
 
 import Log from "../Util";
 var request = require('request');

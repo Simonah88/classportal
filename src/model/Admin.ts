@@ -21,7 +21,8 @@ export default class Admin {
 
 
   /**
-   * The teams the admin is responsible for. More than one Admin can be responsible for the same team. If this is empty, the admin is responsible for all teams.
+   * The teams the admin is responsible for. More than one Admin can be responsible for the
+   * same team. If this is empty, the admin is responsible for all teams.
    *
    * @type {Array}
    */

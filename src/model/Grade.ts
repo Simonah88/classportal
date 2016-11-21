@@ -4,7 +4,8 @@
 
 
 /**
- * This is the same for student and team deliverables. If a grade is set on a student for a team deliverable the grade should be set for all students in the team.
+ * This is the same for student and team deliverables. If a grade is set on a student
+ * for a team deliverable the grade should be set for all students in the team.
  */
 
 import Deliverable from './Deliverable';

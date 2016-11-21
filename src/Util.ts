@@ -320,8 +320,7 @@ export class Helper {
           Log.trace("Helper::addGrade(..) - error: student " + sid + " does not exist in grades.json");
           return callback(error, null);
         }
-      }
-      else {
+      } else {
         Log.trace("Helper::addGrade(..) - file read error");
         return callback(error, null);
       }

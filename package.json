@@ -56,6 +56,7 @@
     "nodemon": "^1.10.2",
     "style-loader": "^0.13.1",
     "tslint": "^3.15.1",
+    "tslint-eslint-rules": "^3.0.0",
     "typescript": "^2.1.1",
     "typings": "^2.0.0",
     "webpack-dev-server": "^1.14.1"
@@ -73,7 +74,9 @@
     "lint": "npm run eslint; npm run tslint"
   },
   "eslintConfig": {
-    "env": { "browser": true },
+    "env": {
+      "browser": true
+    },
     "parser": "babel-eslint",
     "extends": "airbnb",
     "rules": {
@@ -83,7 +86,10 @@
       "no-plusplus": 0,
       "no-alert": 0,
       "react/jsx-no-bind": 0,
-      "arrow-parens": ["error", "always"]
+      "arrow-parens": [
+        "error",
+        "always"
+      ]
     }
   }
 }

@@ -62,8 +62,7 @@ export default class MemoryStore implements Store {
       if (err) {
         console.error(err);
         return null;
-      }
-      else {
+      } else {
         return JSON.parse(data);
       }
     });

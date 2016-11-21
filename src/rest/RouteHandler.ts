@@ -211,8 +211,7 @@ export default class RouteHandler {
       if (!error) {
         Log.trace("RouteHandler::assignTeam| Success!");
         return res.send(200, "success");
-      }
-      else {
+      } else {
         Log.trace("RouteHandler::assignTeam| Error");
         return res.send(500, "error");
       }
@@ -237,8 +236,7 @@ export default class RouteHandler {
       if (!error) {
         Log.trace("RouteHandler::submitGrade(..) - Success!");
         return res.send(200, "success");
-      }
-      else {
+      } else {
         Log.trace("RouteHandler::submitGrade(..) - Error:" + error);
         return res.send(500, error);
       }
