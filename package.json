@@ -62,7 +62,7 @@
   },
   "scripts": {
     "clean": "rm -rf ./typings/; rm -rf ./node_modules/;",
-    "configure": "npm install; node typings-update.js; typings install --global;",
+    "configure": "npm install; node typings-update.js; typings install --global; npm prune",
     "build": "tsc",
     "test": "mocha -c",
     "cover": "istanbul cover _mocha",
